@@ -31,13 +31,7 @@ private:
 
   int m_peerId = -1;
 
-  /**
-   * @brief when a tcp message is split in multiple fragments this will ensure that all fragments are complete
-   * expected size in bytes
-   */
-  qint32 m_socketBufferExpectedSize = 0;
   QTcpSocket *m_tcpSock = 0;
-  XiQNetWrapper *m_wrapper = 0;
   XiQNetPeer *q_ptr = 0;
 
   friend class XiQNetPeer;

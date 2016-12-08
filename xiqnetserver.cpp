@@ -27,7 +27,7 @@ void XiQNetServer::setDefaultWrapper(XiQNetWrapper *t_wrapper)
   d_ptr->m_defaultWrapper = t_wrapper;
 }
 
-void XiQNetServer::broadcastMessage(google::protobuf::Message *t_message) const
+void XiQNetServer::broadcastMessage(QByteArray t_message) const
 {
   foreach(XiQNetPeer *c,d_ptr->m_clients)
   {
@@ -63,10 +63,6 @@ void XiQNetServer::incomingConnection(qintptr t_socketDescriptor)
   qDebug()<<"[xiqnet-qt]Client connected";
 
   XiQNetPeer *client = new XiQNetPeer(t_socketDescriptor, this);
-  if(d_ptr->m_defaultWrapper)
-  {
-    client->setWrapper(d_ptr->m_defaultWrapper);
-  }
   d_ptr->m_clients.append(client);
   connect(client, &XiQNetPeer::sigConnectionClosed, this, &XiQNetServer::clientDisconnectedSRV);
   emit sigClientConnected(client);

@@ -12,7 +12,7 @@ exists( ../../vein-framework.pri ) {
 
 VERSION = 0.0.1
 
-TARGET = xiqnet
+TARGET = xiqnet2
 
 QT += network
 

@@ -46,18 +46,6 @@ public:
    */
   QTcpSocket *getTcpSocket() const;
 
-
-  /**
-   * @brief Returns a reference to the used XiQNetWrapper
-   * @return
-   */
-  XiQNetWrapper *getWrapper() const;
-  /**
-   * @brief Sets the XiQNetWrapper for this peer
-   * @param value
-   */
-  void setWrapper(XiQNetWrapper *value);
-
   QString getErrorString() const;
 
 signals:
@@ -74,7 +62,7 @@ signals:
    * @param t_Message
    * @bug Do not use the t_Message parameter with Qt::QueuedConnection as it may be deleted before the slot is called
    */
-  void sigMessageReceived(google::protobuf::Message *t_Message);
+  void sigMessageReceived(QByteArray t_Message);
   /**
    * @brief Emitted on socket failure
    * @param t_socketError
@@ -86,7 +74,7 @@ public slots:
    * @brief Transmits the message
    * @param t_message
    */
-  void sendMessage(google::protobuf::Message *t_message) const;
+  void sendMessage(QByteArray t_message) const;
   /**
    * @brief Starts the connection in case of a dedicated host connection
    *
