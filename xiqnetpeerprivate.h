@@ -21,7 +21,7 @@ private:
    * @brief readClient
    * @return
    */
-  QByteArray readArray();
+  QByteArray readArray() const;
 
   /**
    * @brief sendByteArray
