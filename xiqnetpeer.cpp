@@ -32,7 +32,7 @@ XiQNetPeer::XiQNetPeer(qintptr t_socketDescriptor, QObject *t_parent) :
 XiQNetPeer::~XiQNetPeer()
 {
   //From the Qt manual QAbstractSocket::disconnected(): "Warning: If you need to delete the sender() of this signal in a slot connected to it, use the deleteLater() function."
-  //This destructor will be called in such a case so delete the QTcpSocket with deleteLater()
+  //The destructor will be called in such a case so delete the QTcpSocket with deleteLater()
   d_ptr->m_tcpSock->deleteLater();
   d_ptr->m_tcpSock=0;
   delete d_ptr;
@@ -86,7 +86,7 @@ void XiQNetPeer::sendMessage(QByteArray t_message) const
 void XiQNetPeer::startConnection(QString t_ipAddress, quint16 t_port)
 {
   //the tcp socket must not exist at this point
-  Q_ASSERT_X(d_ptr->m_tcpSock==0, __PRETTY_FUNCTION__, "[xiqnet-qt] Do not re-use ProtoPeer instances, delete & recreate instead");
+  Q_ASSERT_X(d_ptr->m_tcpSock==0, __PRETTY_FUNCTION__, "[xiqnet-qt] Do not re-use XiqNetPeer instances.");
 
   d_ptr->m_tcpSock= new QTcpSocket(this);
 
@@ -113,7 +113,7 @@ void XiQNetPeer::onReadyRead()
   newMessage = d_ptr->readArray();
   while(!newMessage.isNull())
   {
-    //qDebug() << "[proto-net-qt] Message received: "<<newMessage.toBase64();
+    //qDebug() << "[xiqnet-qt] Message received: "<<newMessage.toBase64();
     emit sigMessageReceived(newMessage);
     newMessage = d_ptr->readArray();
   }
