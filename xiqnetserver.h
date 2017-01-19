@@ -10,13 +10,6 @@
 class XiQNetServerPrivate;
 class XiQNetPeer;
 class XiQNetWrapper;
-namespace google
-{
-  namespace protobuf
-  {
-    class Message;
-  }
-}
 
 /**
  * @brief Custom QTcpServer based implementation of a TCP server

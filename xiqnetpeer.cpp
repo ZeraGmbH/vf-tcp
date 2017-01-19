@@ -1,6 +1,5 @@
 #include "xiqnetpeer.h"
 #include "xiqnetpeerprivate.h"
-#include "xiqnetwrapper.h"
 #include <QTcpSocket>
 #include <QHostAddress>
 

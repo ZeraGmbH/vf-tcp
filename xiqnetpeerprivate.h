@@ -1,8 +1,6 @@
 #ifndef PROTOPEERPRIVATE_H
 #define PROTOPEERPRIVATE_H
 
-#include "xiqnetwrapper.h"
-
 #include <QUuid>
 
 class XiQNetPeer;

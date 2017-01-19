@@ -9,13 +9,6 @@
 
 class XiQNetPeerPrivate;
 class XiQNetWrapper;
-namespace google
-{
-  namespace protobuf
-  {
-    class Message;
-  }
-}
 
 class QTcpSocket;
 
@@ -40,7 +33,7 @@ public:
   void setPeerId(int t_peerId);
 
   /**
-   * @brief Allows access to the QTcpSocket in case of non protobuf transmission
+   * @brief Allows access to the QTcpSocket
    * @return QTcpSocket used by this instance
    * @todo refactor, as this violates the OOP principle "separation of concerns"
    */
@@ -89,9 +82,6 @@ public slots:
   void stopConnection();
 
 protected slots:
-  /**
-   * @brief Translates incoming messages to google::protobuf::Message via the XiQNetWrapper
-   */
   void onReadyRead();
 
 private:

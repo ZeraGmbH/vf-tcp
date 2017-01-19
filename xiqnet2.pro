@@ -9,7 +9,6 @@ exists( ../../vein-framework.pri ) {
 }
 
 
-
 VERSION = 0.0.1
 
 TARGET = xiqnet2
@@ -18,17 +17,11 @@ QT += network
 
 DEFINES += XIQNET_LIBRARY
 
-unix:LIBS += -lprotobuf
-
-android:LIBS+= -L/home/samuel/tmp/android-protobuf/android_libs/protobuf/obj/local/armeabi-v7a/ -lprotobuf
-android:INCLUDEPATH+="/home/samuel/tmp/android-protobuf/android_libs/protobuf/jni/src/"
-
 # Input
 PUBLIC_HEADERS = \
                  xiqnet_global.h \
                  xiqnetpeer.h \
-                 xiqnetserver.h \
-                 xiqnetwrapper.h
+                 xiqnetserver.h
 
 HEADERS += \
            $$PUBLIC_HEADERS \
