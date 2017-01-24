@@ -4,10 +4,6 @@
 
 TEMPLATE = lib
 
-exists( ../../vein-framework.pri ) {
-  include(../../vein-framework.pri)
-}
-
 
 VERSION = 0.0.1
 
@@ -29,17 +25,19 @@ HEADERS += \
            xiqnetserverprivate.h
 
 SOURCES += \
-    xiqnetpeer.cpp \
-    xiqnetpeerprivate.cpp \
-    xiqnetserver.cpp \
-    xiqnetserverprivate.cpp
+           xiqnetpeer.cpp \
+           xiqnetpeerprivate.cpp \
+           xiqnetserver.cpp \
+           xiqnetserverprivate.cpp
 
+public_headers.files = $$PUBLIC_HEADERS
 
 target.path = /usr/lib
 
-header_files.files = $$PUBLIC_HEADERS
-header_files.path = /usr/include
-INSTALLS += header_files
+exists( ../../vein-framework.pri ) {
+  include(../../vein-framework.pri)
+}
+
 INSTALLS += target
 
 QMAKE_CXXFLAGS += -Wall -Wfloat-equal -std=c++0x
