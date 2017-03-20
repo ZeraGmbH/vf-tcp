@@ -9,6 +9,8 @@ XiQNetPeerPrivate::XiQNetPeerPrivate(XiQNetPeer *t_publicPeer) :  q_ptr(t_public
 
 QByteArray XiQNetPeerPrivate::readArray() const
 {
+  Q_ASSERT(m_tcpSock != 0 && m_tcpSock->isOpen());
+
   QByteArray retVal;
   QDataStream in(m_tcpSock);
   in.setVersion(QDataStream::Qt_4_0);
