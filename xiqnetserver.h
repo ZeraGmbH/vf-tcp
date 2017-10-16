@@ -9,7 +9,6 @@
 
 class XiQNetServerPrivate;
 class XiQNetPeer;
-class XiQNetWrapper;
 
 /**
  * @brief Custom QTcpServer based implementation of a TCP server
@@ -22,12 +21,6 @@ public:
   virtual ~XiQNetServer();
 
   QList<XiQNetPeer*> getClientList() const;
-
-  /**
-   * @brief Incoming connections use the default XiQNetWrapper for messaging
-   * @param t_wrapper
-   */
-  void setDefaultWrapper(XiQNetWrapper *t_wrapper);
 
 signals:
   /**

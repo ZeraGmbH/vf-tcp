@@ -8,7 +8,6 @@
 #include <QAbstractSocket>
 
 class XiQNetPeerPrivate;
-class XiQNetWrapper;
 
 class QTcpSocket;
 

@@ -21,12 +21,6 @@ QList<XiQNetPeer *> XiQNetServer::getClientList() const
   return d_ptr->m_clients;
 }
 
-void XiQNetServer::setDefaultWrapper(XiQNetWrapper *t_wrapper)
-{
-  Q_ASSERT(t_wrapper != 0);
-  d_ptr->m_defaultWrapper = t_wrapper;
-}
-
 void XiQNetServer::broadcastMessage(QByteArray t_message) const
 {
   for(XiQNetPeer *tmpClient : d_ptr->m_clients)
