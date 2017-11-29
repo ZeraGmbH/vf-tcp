@@ -32,7 +32,7 @@ namespace VeinTcp
    */
     void sendArray(const QByteArray &t_byteArray) const;
 
-    int m_peerId = -1;
+    QUuid m_peerId;
 
     QTcpSocket *m_tcpSock = 0;
     TcpPeer *q_ptr = 0;

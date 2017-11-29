@@ -33,8 +33,8 @@ namespace VeinTcp
     bool isConnected() const;
 
 
-    int getPeerId() const;
-    void setPeerId(int t_peerId);
+    QUuid getPeerId() const;
+    void setPeerId(QUuid t_peerId);
 
     /**
    * @brief Allows access to the QTcpSocket

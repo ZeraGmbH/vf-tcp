@@ -55,14 +55,14 @@ namespace VeinTcp
     return d_ptr->m_tcpSock && (d_ptr->m_tcpSock->state()==QTcpSocket::ConnectedState || d_ptr->m_tcpSock->state()==QTcpSocket::BoundState);
   }
 
-  int TcpPeer::getPeerId() const
+  QUuid TcpPeer::getPeerId() const
   {
     return d_ptr->m_peerId;
   }
 
-  void TcpPeer::setPeerId(int t_peerId)
+  void TcpPeer::setPeerId(QUuid t_peerId)
   {
-    Q_ASSERT(t_peerId>=0);
+    Q_ASSERT(t_peerId.isNull() == false);
 
     d_ptr->m_peerId = t_peerId;
   }
