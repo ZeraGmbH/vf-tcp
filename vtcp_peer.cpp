@@ -25,7 +25,7 @@ namespace VeinTcp
     if(!d_ptr->m_tcpSock->setSocketDescriptor(t_socketDescriptor))
     {
       emit sigSocketError(d_ptr->m_tcpSock->error());
-      qFatal("[xiqnet-qt] Error setting clients socket descriptor");
+      qFatal("[vein-tcp] Error setting clients socket descriptor");
     }
     d_ptr->m_tcpSock->setSocketOption(QAbstractSocket::KeepAliveOption, true);
   }
@@ -79,7 +79,7 @@ namespace VeinTcp
 
   void TcpPeer::sendMessage(QByteArray t_message) const
   {
-    Q_ASSERT_X(isConnected(), __PRETTY_FUNCTION__, "[xiqnet-qt] Trying to send data to disconnected host.");
+    Q_ASSERT_X(isConnected(), __PRETTY_FUNCTION__, "[vein-tcp] Trying to send data to disconnected host.");
 
     d_ptr->sendArray(t_message);
   }
@@ -87,7 +87,7 @@ namespace VeinTcp
   void TcpPeer::startConnection(QString t_ipAddress, quint16 t_port)
   {
     //the tcp socket must not exist at this point
-    Q_ASSERT_X(d_ptr->m_tcpSock==0, __PRETTY_FUNCTION__, "[xiqnet-qt] Do not re-use XiqNetPeer instances.");
+    Q_ASSERT_X(d_ptr->m_tcpSock==0, __PRETTY_FUNCTION__, "[vein-tcp] Do not re-use XiqNetPeer instances.");
 
     d_ptr->m_tcpSock= new QTcpSocket(this);
 
@@ -114,7 +114,7 @@ namespace VeinTcp
     newMessage = d_ptr->readArray();
     while(!newMessage.isNull())
     {
-      //qDebug() << "[xiqnet-qt] Message received: "<<newMessage.toBase64();
+      //qDebug() << "[vein-tcp] Message received: "<<newMessage.toBase64();
       emit sigMessageReceived(newMessage);
       newMessage = d_ptr->readArray();
     }

@@ -3,7 +3,6 @@
 
 #include "vtcp_peer.h"
 
-
 namespace VeinTcp
 {
   TcpServer::TcpServer(QObject *t_parent) :
@@ -30,16 +29,19 @@ namespace VeinTcp
     }
   }
 
-  void TcpServer::startServer(quint16 t_port)
+  bool TcpServer::startServer(quint16 t_port)
   {
+    bool retVal = false;
     if(this->listen(QHostAddress::Any, t_port))
     {
-      qDebug()<<"[xiqnet-qt]Server Started on port:" << t_port;
+      retVal = true;
+      qDebug()<<"[vein-tcp]Server Started on port:" << t_port;
     }
     else
     {
-      qCritical() << "[xiqnet-qt]Server could not listen on port:" << t_port << "error:" << errorString();
+      qCritical() << "[vein-tcp]Server could not listen on port:" << t_port << "error:" << errorString();
     }
+    return retVal;
   }
 
   void TcpServer::clientDisconnectedSRV()
@@ -55,7 +57,7 @@ namespace VeinTcp
 
   void TcpServer::incomingConnection(qintptr t_socketDescriptor)
   {
-    qDebug()<<"[xiqnet-qt]Client connected";
+    qDebug()<<"[vein-tcp]Client connected";
 
     TcpPeer *client = new TcpPeer(t_socketDescriptor, this);
     d_ptr->m_clients.append(client);

@@ -43,7 +43,7 @@ namespace VeinTcp
    * @note Prints out the server port to the debug message handler
    * @param t_port
    */
-    void startServer(quint16 t_port);
+    bool startServer(quint16 t_port);
 
   protected slots:
     /**
