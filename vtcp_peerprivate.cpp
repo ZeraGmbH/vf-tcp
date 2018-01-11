@@ -18,14 +18,19 @@ namespace VeinTcp
     in.startTransaction();
     in >> retVal;
 
-    if (in.commitTransaction() == true)
+    if(in.commitTransaction() == true)
     {
       return retVal;
     }
     else //need to wait for more data
     {
+      if(in.status() == QDataStream::ReadCorruptData)
+      {
+        qWarning() << "Received corrupt data from client:" << m_peerId;
+      }
       return QByteArray();
     }
+
   }
 
   void TcpPeerPrivate::sendArray(const QByteArray &t_byteArray) const

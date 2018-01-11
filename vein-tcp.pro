@@ -9,11 +9,10 @@ VERSION = 0.0.1
 
 QT += network
 
-DEFINES += XIQNET_LIBRARY
+DEFINES += VEINTCP_LIBRARY
 
 # Input
-PUBLIC_HEADERS = \
-                 vtcp_global.h \
+PUBLIC_HEADERS = vtcp_global.h \
                  vtcp_peer.h \
                  vtcp_server.h
 

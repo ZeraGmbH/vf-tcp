@@ -3,7 +3,7 @@
 
 #include <QtCore/qglobal.h>
 
-#if defined(XIQNET_LIBRARY)
+#if defined(VEINTCP_LIBRARY)
 #  define VEIN_TCPSHARED_EXPORT Q_DECL_EXPORT
 #else
 #  define VEIN_TCPSHARED_EXPORT Q_DECL_IMPORT
