@@ -44,22 +44,18 @@ namespace VeinTcp
     return retVal;
   }
 
-  void TcpServer::clientDisconnectedSRV()
+  void TcpServer::clientDisconnectedSRV(TcpPeer *t_peer)
   {
-    Q_ASSERT(QObject::sender()!=0); /// @todo redesign to not rely on QObject::sender
-    TcpPeer *client = qobject_cast<TcpPeer*>(QObject::sender());
-    Q_ASSERT(client != 0);
-
-    d_ptr->m_clients.removeAll(client);
+    d_ptr->m_clients.removeAll(t_peer);
     ///@note use deletelater to execute other signal slot connections connected to the XiQNetPeer::sigConnectionClosed signal
-    client->deleteLater();
+    t_peer->deleteLater();
   }
 
   void TcpServer::incomingConnection(qintptr t_socketDescriptor)
   {
     qDebug()<<"[vein-tcp]Client connected";
 
-    TcpPeer *client = new TcpPeer(t_socketDescriptor, this);
+    TcpPeer *client = new TcpPeer(t_socketDescriptor, this); //deleted in TcpServer::clientDisconnectedSRV
     d_ptr->m_clients.append(client);
     connect(client, &TcpPeer::sigConnectionClosed, this, &TcpServer::clientDisconnectedSRV);
     emit sigClientConnected(client);

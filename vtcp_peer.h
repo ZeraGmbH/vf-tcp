@@ -49,17 +49,17 @@ namespace VeinTcp
     /**
    * @brief Emitted if successful connected
    */
-    void sigConnectionEstablished();
+    void sigConnectionEstablished(TcpPeer *t_sender);
     /**
    * @brief Emitted when the connection is interrupted
    */
     void sigConnectionClosed(TcpPeer *t_client);
     /**
    * @brief Emitted when incoming messages arrive
-   * @param t_Message
-   * @bug Do not use the t_Message parameter with Qt::QueuedConnection as it may be deleted before the slot is called
+   * @param t_message
+   * @bug Do not use the t_message parameter with Qt::QueuedConnection as it may be deleted before the slot is called
    */
-    void sigMessageReceived(QByteArray t_Message);
+    void sigMessageReceived(TcpPeer *t_sender, QByteArray t_message);
     /**
    * @brief Emitted on socket failure
    * @param t_socketError

@@ -16,9 +16,9 @@ namespace VeinTcp
     d_ptr(new TcpPeerPrivate(this))
   {
     d_ptr->m_tcpSock = new QTcpSocket();
-    connect(d_ptr->m_tcpSock, &QTcpSocket::connected, this, &TcpPeer::sigConnectionEstablished);
+    connect(d_ptr->m_tcpSock, &QTcpSocket::connected, this, [this](){ emit sigConnectionEstablished(this); });
     connect(d_ptr->m_tcpSock, &QTcpSocket::readyRead, this, &TcpPeer::onReadyRead);
-    connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, [this](){ emit sigConnectionClosed(this); });
+    connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, this, [this](){ emit sigConnectionClosed(this); });
     connect(d_ptr->m_tcpSock, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(sigSocketError(QAbstractSocket::SocketError)));
 
     connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, this, &TcpPeer::stopConnection);
@@ -91,9 +91,9 @@ namespace VeinTcp
 
     d_ptr->m_tcpSock= new QTcpSocket(this);
 
-    connect(d_ptr->m_tcpSock, &QTcpSocket::connected, this, &TcpPeer::sigConnectionEstablished);
+    connect(d_ptr->m_tcpSock, &QTcpSocket::connected, this, [this](){ emit sigConnectionEstablished(this); });
     connect(d_ptr->m_tcpSock, &QTcpSocket::readyRead, this, &TcpPeer::onReadyRead);
-    connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, [this](){ emit sigConnectionClosed(this); });
+    connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, this, [this](){ emit sigConnectionClosed(this); });
     connect(d_ptr->m_tcpSock, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(sigSocketError(QAbstractSocket::SocketError)));
     connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, this, &TcpPeer::stopConnection);
     d_ptr->m_tcpSock->connectToHost(t_ipAddress, t_port);
@@ -115,7 +115,7 @@ namespace VeinTcp
     while(!newMessage.isNull())
     {
       //qDebug() << "[vein-tcp] Message received: "<<newMessage.toBase64();
-      emit sigMessageReceived(newMessage);
+      emit sigMessageReceived(this, newMessage);
       newMessage = d_ptr->readArray();
     }
   }

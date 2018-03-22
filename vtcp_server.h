@@ -49,7 +49,7 @@ namespace VeinTcp
     /**
    * @brief For reference housekeeping
    */
-    void clientDisconnectedSRV();
+    void clientDisconnectedSRV(TcpPeer *t_peer);
 
   protected:
     /**
