@@ -19,12 +19,12 @@ namespace VeinTcp
     connect(d_ptr->m_tcpSock, &QTcpSocket::connected, this, [this](){ emit sigConnectionEstablished(this); });
     connect(d_ptr->m_tcpSock, &QTcpSocket::readyRead, this, &TcpPeer::onReadyRead);
     connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, this, [this](){ emit sigConnectionClosed(this); });
-    connect(d_ptr->m_tcpSock, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(sigSocketError(QAbstractSocket::SocketError)));
+    connect<void(QTcpSocket::*)(QAbstractSocket::SocketError)>(d_ptr->m_tcpSock, &QTcpSocket::error, this, [this](QAbstractSocket::SocketError t_socketError){ emit sigSocketError(this, t_socketError); });
 
     connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, this, &TcpPeer::stopConnection);
     if(!d_ptr->m_tcpSock->setSocketDescriptor(t_socketDescriptor))
     {
-      emit sigSocketError(d_ptr->m_tcpSock->error());
+      emit sigSocketError(this, d_ptr->m_tcpSock->error());
       qFatal("[vein-tcp] Error setting clients socket descriptor");
     }
     d_ptr->m_tcpSock->setSocketOption(QAbstractSocket::KeepAliveOption, true);
@@ -94,7 +94,7 @@ namespace VeinTcp
     connect(d_ptr->m_tcpSock, &QTcpSocket::connected, this, [this](){ emit sigConnectionEstablished(this); });
     connect(d_ptr->m_tcpSock, &QTcpSocket::readyRead, this, &TcpPeer::onReadyRead);
     connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, this, [this](){ emit sigConnectionClosed(this); });
-    connect(d_ptr->m_tcpSock, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(sigSocketError(QAbstractSocket::SocketError)));
+    connect<void(QTcpSocket::*)(QAbstractSocket::SocketError)>(d_ptr->m_tcpSock, &QTcpSocket::error, this, [this](QAbstractSocket::SocketError t_socketError){ emit sigSocketError(this, t_socketError); });
     connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, this, &TcpPeer::stopConnection);
     d_ptr->m_tcpSock->connectToHost(t_ipAddress, t_port);
     d_ptr->m_tcpSock->setSocketOption(QAbstractSocket::KeepAliveOption, true);

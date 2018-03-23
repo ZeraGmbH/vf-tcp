@@ -64,7 +64,7 @@ namespace VeinTcp
    * @brief Emitted on socket failure
    * @param t_socketError
    */
-    void sigSocketError(QAbstractSocket::SocketError t_socketError);
+    void sigSocketError(TcpPeer *t_sender, QAbstractSocket::SocketError t_socketError);
 
   public slots:
     /**
