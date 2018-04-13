@@ -17,7 +17,7 @@ namespace VeinTcp
     ~TcpServerPrivate();
 
     QList<TcpPeer*> m_clients;
-    TcpServer *q_ptr = 0;
+    TcpServer *q_ptr = nullptr;
 
     friend class TcpServer;
   };

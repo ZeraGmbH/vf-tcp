@@ -10,7 +10,7 @@ namespace VeinTcp
 
   QByteArray TcpPeerPrivate::readArray() const
   {
-    Q_ASSERT(m_tcpSock != 0 && m_tcpSock->isOpen());
+    Q_ASSERT(m_tcpSock != nullptr && m_tcpSock->isOpen());
 
     QByteArray retVal;
     QDataStream in(m_tcpSock);
@@ -35,7 +35,7 @@ namespace VeinTcp
 
   void TcpPeerPrivate::sendArray(const QByteArray &t_byteArray) const
   {
-    Q_ASSERT(m_tcpSock != 0 && m_tcpSock->isOpen());
+    Q_ASSERT(m_tcpSock != nullptr && m_tcpSock->isOpen());
 
     QDataStream out(m_tcpSock);
     out.setVersion(QDataStream::Qt_5_7);

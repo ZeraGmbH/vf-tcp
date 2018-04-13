@@ -34,8 +34,8 @@ namespace VeinTcp
 
     QUuid m_peerId;
 
-    QTcpSocket *m_tcpSock = 0;
-    TcpPeer *q_ptr = 0;
+    QTcpSocket *m_tcpSock = nullptr;
+    TcpPeer *q_ptr = nullptr;
 
     friend class TcpPeer;
   };

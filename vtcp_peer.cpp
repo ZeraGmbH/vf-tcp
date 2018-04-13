@@ -22,7 +22,7 @@ namespace VeinTcp
     connect<void(QTcpSocket::*)(QAbstractSocket::SocketError)>(d_ptr->m_tcpSock, &QTcpSocket::error, this, [this](QAbstractSocket::SocketError t_socketError){ emit sigSocketError(this, t_socketError); });
 
     connect(d_ptr->m_tcpSock, &QTcpSocket::disconnected, this, &TcpPeer::stopConnection);
-    if(!d_ptr->m_tcpSock->setSocketDescriptor(t_socketDescriptor))
+    if(d_ptr->m_tcpSock->setSocketDescriptor(t_socketDescriptor) == false)
     {
       emit sigSocketError(this, d_ptr->m_tcpSock->error());
       qFatal("[vein-tcp] Error setting clients socket descriptor");

@@ -23,8 +23,8 @@ namespace VeinTcp
   {
     Q_OBJECT
   public:
-    explicit TcpPeer(QObject *t_parent = 0);
-    explicit TcpPeer(qintptr t_socketDescriptor, QObject *t_parent = 0);
+    explicit TcpPeer(QObject *t_parent = nullptr);
+    explicit TcpPeer(qintptr t_socketDescriptor, QObject *t_parent = nullptr);
 
     ~TcpPeer();
 
@@ -92,7 +92,7 @@ namespace VeinTcp
     /**
    * @brief PIMPL pointer
    */
-    TcpPeerPrivate *d_ptr = 0;
+    TcpPeerPrivate *d_ptr = nullptr;
   };
 }
 

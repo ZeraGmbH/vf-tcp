@@ -19,7 +19,7 @@ namespace VeinTcp
   {
     Q_OBJECT
   public:
-    explicit TcpServer(QObject *t_parent = 0);
+    explicit TcpServer(QObject *t_parent = nullptr);
     virtual ~TcpServer();
 
     QList<TcpPeer*> getClientList() const;
@@ -62,7 +62,7 @@ namespace VeinTcp
     /**
    * @brief PIMPL pointer
    */
-    TcpServerPrivate *d_ptr = 0;
+    TcpServerPrivate *d_ptr = nullptr;
   };
 }
 #endif // H2012_xiqnet_SERVER_H
