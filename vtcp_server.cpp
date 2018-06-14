@@ -2,6 +2,10 @@
 #include "vtcp_serverprivate.h"
 
 #include "vtcp_peer.h"
+#ifdef VF_SYSTEMD_ENABLED
+#include <sys/socket.h>
+#include <systemd/sd-daemon.h>
+#endif //VF_SYSTEMD_ENABLED
 
 namespace VeinTcp
 {
@@ -32,14 +36,43 @@ namespace VeinTcp
   bool TcpServer::startServer(quint16 t_port)
   {
     bool retVal = false;
-    if(this->listen(QHostAddress::Any, t_port))
+
+#ifdef VF_SYSTEMD_ENABLED
+    //check if systemd has handed us a socket (service socket activation)
+    int tmpSocketDescriptor = -1;
+    const int socketCount=sd_listen_fds(0);
+
+    for(int i=0; i<socketCount; ++i)
     {
-      retVal = true;
-      qDebug()<<"[vein-tcp]Server Started on port:" << t_port;
+      if(sd_is_socket_inet(SD_LISTEN_FDS_START+i, AF_UNSPEC, SOCK_STREAM, 1, t_port)) //(int fd, int family, int type, int listening, uint16_t port)
+      {
+        tmpSocketDescriptor = SD_LISTEN_FDS_START+i;
+        break;
+      }
     }
-    else
+
+    if(tmpSocketDescriptor >= SD_LISTEN_FDS_START)
     {
-      qCritical() << "[vein-tcp]Server could not listen on port:" << t_port << "error:" << errorString();
+      if(setSocketDescriptor(tmpSocketDescriptor))
+      {
+        retVal = true;
+        qDebug()<<"[vein-tcp] Inherited socket descriptor from systemd, listening on port:" << t_port;
+      }
+    }
+#endif //VF_SYSTEMD_ENABLED
+
+
+    if(isListening() == false)
+    {
+      if(this->listen(QHostAddress::Any, t_port))
+      {
+        retVal = true;
+        qDebug()<<"[vein-tcp] Server Started on port:" << t_port;
+      }
+      else
+      {
+        qCritical() << "[vein-tcp] Server could not listen on port:" << t_port << "error:" << errorString();
+      }
     }
     return retVal;
   }
@@ -53,7 +86,7 @@ namespace VeinTcp
 
   void TcpServer::incomingConnection(qintptr t_socketDescriptor)
   {
-    qDebug()<<"[vein-tcp]Client connected";
+    qDebug()<<"[vein-tcp] Client connected";
 
     TcpPeer *client = new TcpPeer(t_socketDescriptor, this); //deleted in TcpServer::clientDisconnectedSRV
     d_ptr->m_clients.append(client);

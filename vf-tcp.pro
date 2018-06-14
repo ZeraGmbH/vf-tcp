@@ -12,6 +12,14 @@ QT += network
 
 DEFINES += VEINTCP_LIBRARY
 
+isEmpty(VF_NO_SYSTEMD) {
+  message(systemd support enabled)
+  # Link to libsystemd shared library using pkg-config:
+  CONFIG += link_pkgconfig
+  PKGCONFIG += libsystemd
+  DEFINES += VF_SYSTEMD_ENABLED
+}
+
 # Input
 PUBLIC_HEADERS = vtcp_global.h \
                  vtcp_peer.h \
