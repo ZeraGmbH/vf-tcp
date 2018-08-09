@@ -39,31 +39,37 @@ namespace VeinTcp
     /**
    * @brief Allows access to the QTcpSocket
    * @return QTcpSocket used by this instance
-   * @todo refactor, as this violates the OOP principle "separation of concerns"
    */
     QTcpSocket *getTcpSocket() const;
 
+    /**
+     * @brief Forwards QTcpSocket->errorString();
+     * @return Error string
+     */
     QString getErrorString() const;
 
   signals:
     /**
-   * @brief Emitted if successful connected
-   */
+     * @brief Emitted if successful connected
+     * @param t_sender the connected peer
+     */
     void sigConnectionEstablished(TcpPeer *t_sender);
     /**
-   * @brief Emitted when the connection is interrupted
-   */
-    void sigConnectionClosed(TcpPeer *t_client);
+     * @brief Emitted when the connection is interrupted
+     * @param t_sender dthe disconnected peer
+     */
+    void sigConnectionClosed(TcpPeer *t_sender);
     /**
-   * @brief Emitted when incoming messages arrive
-   * @param t_message
-   * @bug Do not use the t_message parameter with Qt::QueuedConnection as it may be deleted before the slot is called
-   */
+     * @brief Emitted when incoming messages arrive
+     * @param t_sender peer who sent the message
+     * @param t_message message data
+     */
     void sigMessageReceived(TcpPeer *t_sender, QByteArray t_message);
     /**
-   * @brief Emitted on socket failure
-   * @param t_socketError
-   */
+     * @brief Emitted on socket failure
+     * @param t_sender peer where the fault occured
+     * @param t_socketError
+     */
     void sigSocketError(TcpPeer *t_sender, QAbstractSocket::SocketError t_socketError);
 
   public slots:

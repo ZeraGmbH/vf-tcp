@@ -8,9 +8,6 @@ namespace VeinTcp
   class TcpPeer;
   class TcpServer;
 
-  /**
- * @brief XiQNetServer PIMPL
- */
   class TcpServerPrivate
   {
     TcpServerPrivate(TcpServer *t_public);

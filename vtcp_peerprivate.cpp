@@ -26,7 +26,7 @@ namespace VeinTcp
     {
       if(in.status() == QDataStream::ReadCorruptData)
       {
-        qWarning() << "Received corrupt data from client:" << m_peerId;
+        qWarning() << "[vein-tcp] Received corrupt data from client:" << m_peerId;
       }
       return QByteArray();
     }
@@ -40,5 +40,10 @@ namespace VeinTcp
     QDataStream out(m_tcpSock);
     out.setVersion(QDataStream::Qt_5_7);
     out << t_byteArray;
+
+    if(out.status() == QDataStream::WriteFailed)
+    {
+      qWarning() << "[vein-tcp] Write failed for client:" << m_peerId;
+    }
   }
 }

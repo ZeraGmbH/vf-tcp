@@ -11,10 +11,6 @@ namespace VeinTcp
 {
   class TcpPeer;
 
-
-  /**
- * @brief XiQNetPeer PIMPL
- */
   class TcpPeerPrivate
   {
   private:

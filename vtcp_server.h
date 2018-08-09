@@ -65,4 +65,4 @@ namespace VeinTcp
     TcpServerPrivate *d_ptr = nullptr;
   };
 }
-#endif // H2012_xiqnet_SERVER_H
+#endif // VEIN_TCP_SERVER_H

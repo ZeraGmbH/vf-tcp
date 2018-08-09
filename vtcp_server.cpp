@@ -80,7 +80,7 @@ namespace VeinTcp
   void TcpServer::clientDisconnectedSRV(TcpPeer *t_peer)
   {
     d_ptr->m_clients.removeAll(t_peer);
-    ///@note use deletelater to execute other signal slot connections connected to the XiQNetPeer::sigConnectionClosed signal
+    ///@note use deletelater to execute other signal slot connections connected to the TcpPeer::sigConnectionClosed signal
     t_peer->deleteLater();
   }
 
