@@ -13,7 +13,7 @@ QT += network
 DEFINES += VEINTCP_LIBRARY
 
 isEmpty(VF_NO_SYSTEMD) {
-  message(systemd support enabled)
+  message(vf-tcp systemd support enabled)
   # Link to libsystemd shared library using pkg-config:
   CONFIG += link_pkgconfig
   PKGCONFIG += libsystemd
