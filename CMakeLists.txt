@@ -25,7 +25,7 @@ include(FeatureSummary)
 include(GNUInstallDirs)
 
 #Find dependecies
-find_package(Qt5 COMPONENTS Core Qml CONFIG REQUIRED)
+find_package(Qt5 COMPONENTS Core Network CONFIG REQUIRED)
 
 
 if(${useSystemd})
@@ -60,7 +60,7 @@ add_library(VfTcp SHARED
 target_link_libraries(VfTcp 
     PRIVATE
     Qt5::Core
-    Qt5::Qml   
+    Qt5::Network
     )
 
 
