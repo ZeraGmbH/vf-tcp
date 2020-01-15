@@ -1,7 +1,7 @@
 #ifndef VEIN_TCP_PEER_H
 #define VEIN_TCP_PEER_H
 
-#include "vtcp_global.h"
+#include "vftcp_export.h"
 
 #include <QObject>
 #include <QString>
@@ -19,7 +19,7 @@ namespace VeinTcp
   /**
  * @brief Custom QTcpSocket based implementation of a TCP network peer
  */
-  class VEIN_TCPSHARED_EXPORT TcpPeer : public QObject
+  class VFTCP_EXPORT TcpPeer : public QObject
   {
     Q_OBJECT
   public:

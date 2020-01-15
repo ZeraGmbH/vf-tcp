@@ -76,6 +76,9 @@ endif()
 target_include_directories(VfTcp
     PUBLIC
     $<INSTALL_INTERFACE:include/VfTcp>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
 #set target Version

@@ -1,7 +1,7 @@
 #ifndef VEIN_TCP_SERVER_H
 #define VEIN_TCP_SERVER_H
 
-#include "vtcp_global.h"
+#include "vftcp_export.h"
 
 #include <QTcpServer>
 
@@ -15,7 +15,7 @@ namespace VeinTcp
   /**
  * @brief Custom QTcpServer based implementation of a TCP server
  */
-  class VEIN_TCPSHARED_EXPORT TcpServer : public QTcpServer
+  class VFTCP_EXPORT TcpServer : public QTcpServer
   {
     Q_OBJECT
   public:
