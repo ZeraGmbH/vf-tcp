@@ -31,6 +31,7 @@ find_package(Qt5 COMPONENTS Core Network CONFIG REQUIRED)
 if(${useSystemd})
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(Systemd REQUIRED libsystemd)
+    add_definitions(-DVF_SYSTEMD_ENABLED)
 endif()
 
 
