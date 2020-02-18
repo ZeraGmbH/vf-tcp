@@ -2,8 +2,6 @@
 #define PROTO_NET_GLOBAL_H
 
 #include <QtCore/qglobal.h>
-#include <memory>
-
 
 /*! \mainpage protobuf networking class-library
  *
@@ -16,15 +14,6 @@
  * \subsection Examples:
  *
  */
-namespace google
-{
-  namespace protobuf
-  {
-    class Message;
-  }
-}
-
-using ProtobufPointer = const std::shared_ptr<google::protobuf::Message>;
 
 #if defined(XIQNET_LIBRARY)
 #  define XIQNET_QTSHARED_EXPORT Q_DECL_EXPORT
