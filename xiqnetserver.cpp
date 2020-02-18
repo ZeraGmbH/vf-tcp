@@ -29,9 +29,9 @@ void XiQNetServer::setDefaultWrapper(XiQNetWrapper *t_wrapper)
 
 void XiQNetServer::broadcastMessage(google::protobuf::Message *t_message) const
 {
-  for(XiQNetPeer *tmpClient : d_ptr->m_clients)
+  foreach(XiQNetPeer *c,d_ptr->m_clients)
   {
-    tmpClient->sendMessage(t_message);
+    c->sendMessage(t_message);
   }
 }
 
