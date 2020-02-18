@@ -3,10 +3,6 @@
 
 #include "xiqnetpeer.h"
 
-#ifdef XIQ_SYSTEMD_ENABLED
-#include <sys/socket.h>
-#include <systemd/sd-daemon.h>
-#endif //XIQ_SYSTEMD_ENABLED
 
 
 XiQNetServer::XiQNetServer(QObject *t_parent) :
@@ -41,40 +37,13 @@ void XiQNetServer::broadcastMessage(google::protobuf::Message *t_message) const
 
 void XiQNetServer::startServer(quint16 t_port)
 {
-
-#ifdef XIQ_SYSTEMD_ENABLED
-  //check if systemd has handed us a socket (service socket activation)
-  int tmpSocketDescriptor = -1;
-  const int socketCount=sd_listen_fds(0);
-
-  for(int i=0; i<socketCount; ++i)
+  if(this->listen(QHostAddress::Any, t_port))
   {
-    if(sd_is_socket_inet(SD_LISTEN_FDS_START+i, AF_UNSPEC, SOCK_STREAM, 1, t_port)) //(int fd, int family, int type, int listening, uint16_t port)
-    {
-      tmpSocketDescriptor = SD_LISTEN_FDS_START+i;
-      break;
-    }
+    qDebug()<<"[xiqnet-qt]Server Started on port:" << t_port;
   }
-
-  if(tmpSocketDescriptor >= SD_LISTEN_FDS_START)
+  else
   {
-    if(setSocketDescriptor(tmpSocketDescriptor))
-    {
-      qDebug()<<"[xiqnet-qt] Inherited socket descriptor from systemd, listening on port:" << t_port;
-    }
-  }
-#endif //XIQ_SYSTEMD_ENABLED
-
-  if(isListening() == false)
-  {
-    if(this->listen(QHostAddress::Any, t_port))
-    {
-      qDebug()<<"[xiqnet-qt]Server Started on port:" << t_port;
-    }
-    else
-    {
-      qCritical() << "[xiqnet-qt]Server could not listen on port:" << t_port << "error:" << errorString();
-    }
+    qCritical() << "[xiqnet-qt]Server could not listen on port:" << t_port << "error:" << errorString();
   }
 }
 
