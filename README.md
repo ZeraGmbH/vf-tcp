@@ -1,3 +1,1 @@
-sst-netware-qt5
-=============
-Mirror
+Minimal c++/Qt based classes for tcp client/server communication 
