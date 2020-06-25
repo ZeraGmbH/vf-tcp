@@ -11,8 +11,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
-option(useSystemd "Using libsystemd" ON)
-
 #Set project Version
 set(VfTcp_VERSION_MAJOR "0")
 set(VfTcp_VERSION_MINOR "0")
@@ -27,13 +25,8 @@ include(GNUInstallDirs)
 #Find dependecies
 find_package(Qt5 COMPONENTS Core Network CONFIG REQUIRED)
 
-
-if(${useSystemd})
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(Systemd REQUIRED libsystemd)
-    add_definitions(-DVF_SYSTEMD_ENABLED)
-endif()
-
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(Systemd REQUIRED libsystemd)
 
 
 #sum up project Files 
